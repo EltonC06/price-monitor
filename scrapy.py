@@ -7,8 +7,12 @@ def get_scrapy(url):
 
     precious = []
     for price in soup.find_all('span', class_="andes-money-amount__fraction", ):
-        value = price.string
-        precious.append(value)
+        value = str(price.string)
+        if "." in value:
+            
+            value = value.replace(".", "")
+            
+        precious.append(int(value))
     return precious
    
 
@@ -16,4 +20,4 @@ ml_url = "https://lista.mercadolivre.com.br/ssd#D[A:ssd]"
 
 products = get_scrapy(ml_url)
 for product in sorted(products):
-    print("R$",product)
+    print(product)
